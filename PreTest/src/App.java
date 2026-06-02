@@ -1,41 +1,43 @@
+import java.util.Scanner;
+import java.util.InputMismatchException;
+
 public class App {
     public static void main(String[] args) {
+        Scanner scanner = null;
 
         try {
-            SistemKalkulator kalk1 = new SistemKalkulator(10, 2);
-            System.out.println("Hasil: " + kalk1.pembagian());
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+            scanner = new Scanner(System.in);
+            System.out.print("Masukkan pembilang: ");
+            double pembilang = scanner.nextDouble();
 
-        try {
-            double pembilang = 10;
-            double penyebut = 0;
+            System.out.print("Masukkan penyebut: ");
+            double penyebut = scanner.nextDouble();
 
             if (penyebut == 0) {
                 throw new ArithmeticException(pembilang, penyebut);
             }
 
-            SistemKalkulator kalk2 = new SistemKalkulator(pembilang, penyebut);
-            System.out.println("Hasil: " + kalk2.pembagian());
-
-        } catch (ArithmeticException e) {
-            System.out.println(e.getMessage());
-        }
-
-        try {
-            double pembilang = -5;
-            double penyebut = 2;
-
             if (pembilang < 0 || penyebut < 0) {
                 throw new inputMathException(pembilang, penyebut);
             }
 
-            SistemKalkulator kalk3 = new SistemKalkulator(pembilang, penyebut);
-            System.out.println("Hasil: " + kalk3.pembagian());
+            SistemKalkulator kalk = new SistemKalkulator(pembilang, penyebut);
+            System.out.println("Hasil: " + kalk.pembagian());
+
+        } catch (InputMismatchException e) {
+            System.out.println("Input bukan angka!");
+
+        } catch (ArithmeticException e) {
+            System.out.println(e.getMessage());
 
         } catch (inputMathException e) {
             System.out.println(e.getMessage());
+
+        } finally {
+            if (scanner != null) {
+                scanner.close();
+                System.out.println("Scanner berhasil ditutup.");
+            }
         }
     }
 }
